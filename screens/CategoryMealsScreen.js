@@ -1,16 +1,31 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
+import MealItem from '../components/MealItem';
 
-const CategoryMealsScreen = ({ navigation }) => {
+import { MEALS } from '../data/dummy-data';
+
+const CategoryMealsScreen = ({ route, navigation }) => {
+    const { categoryId } = route.params;
+    const displayedMeals = MEALS.filter((m) => m.categoryIds.includes(categoryId));
+
+    const renderMealItem = (itemData) => (
+        <MealItem
+            meal={itemData.item}
+            onSelectMeal={() => {
+                navigation.navigate('MealDetail', {
+                    mealId: itemData.item.id
+                })
+            }}
+        />
+    );
+
     return (
         <View style={styles.screen}>
-            <Text>The Category Meals Screen</Text>
-            <Button title="Go to Details!" onPress={() => {
-                navigation.navigate('MealDetail');
-            }}/>
-            <Button title="Go Back" onPress={() => {
-                navigation.pop();
-            }}/>
+            <FlatList
+                data={displayedMeals}
+                renderItem={renderMealItem}
+                style={styles.list}
+            />
         </View>
     );
 };
@@ -19,7 +34,11 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 15
+    },
+    list: {
+        width: '100%'
     }
 });
 
