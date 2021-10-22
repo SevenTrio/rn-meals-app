@@ -1,6 +1,5 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import CategoriesScreen from '../screens/CategoriesScreen';
@@ -14,38 +13,36 @@ const Stack = createNativeStackNavigator();
 
 const MealsNavigator = () => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator
-                screenOptions={{
-                    headerStyle: {
-                        backgroundColor: Platform.OS === 'android' ? colors.primary : ''
-                    },
-                    headerTintColor: Platform.OS === 'android' ? 'white' : colors.primary,
+        <Stack.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: Platform.OS === 'android' ? colors.primary : ''
+                },
+                headerTintColor: Platform.OS === 'android' ? 'white' : colors.primary,
+            }}
+        >
+            <Stack.Screen
+                name="Categories"
+                component={CategoriesScreen}
+                options={{
+                    title: 'Meal categories',
                 }}
-            >
-                <Stack.Screen
-                    name="Categories"
-                    component={CategoriesScreen}
-                    options={{
-                        title: 'Meal categories',
-                    }}
-                />
-                <Stack.Screen
-                    name="CategoryMeals"
-                    component={CategoryMealsScreen}
-                    options={({ route }) => ({
-                        title: CATEGORIES.find((c) => c.id === route.params.categoryId)?.title
-                    })}
-                />
-                <Stack.Screen
-                    name="MealDetail"
-                    component={MealDetailScreen}
-                    options={({ route }) => ({
-                        title: MEALS.find((m) => m.id === route.params.mealId)?.title
-                    })}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+            />
+            <Stack.Screen
+                name="CategoryMeals"
+                component={CategoryMealsScreen}
+                options={({ route }) => ({
+                    title: CATEGORIES.find((c) => c.id === route.params.categoryId)?.title
+                })}
+            />
+            <Stack.Screen
+                name="MealDetail"
+                component={MealDetailScreen}
+                options={({ route }) => ({
+                    title: MEALS.find((m) => m.id === route.params.mealId)?.title
+                })}
+            />
+        </Stack.Navigator>
     );
 };
 

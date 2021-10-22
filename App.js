@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 
-import MealsNavigator from './navigation/MealsNavigator';
+import AppNavigator from './navigation/AppNavigator';
 
 const fetchFonts = () => {
     return Font.loadAsync({
@@ -24,7 +24,7 @@ const App = () => {
         );
     }
 
-    return <MealsNavigator />;
+    return <AppNavigator />;
 };
 
 export default App;
