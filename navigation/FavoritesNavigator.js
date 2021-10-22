@@ -1,30 +1,22 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import CategoriesScreen from '../screens/CategoriesScreen';
-import CategoryMealsScreen from '../screens/CategoryMealsScreen';
+import FavoritesScreen from '../screens/FavoritesScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
 import stackNavOptions from '../constants/stackNavOptions';
-import { CATEGORIES, MEALS } from '../data/dummy-data';
+import { MEALS } from '../data/dummy-data';
 
 const Stack = createNativeStackNavigator();
 
-const MealsNavigator = () => {
+const FavoritesNavigator = () => {
     return (
         <Stack.Navigator screenOptions={stackNavOptions}>
             <Stack.Screen
-                name="Categories"
-                component={CategoriesScreen}
+                name="Favorites"
+                component={FavoritesScreen}
                 options={{
-                    title: 'Meal categories',
+                    title: 'Favorites',
                 }}
-            />
-            <Stack.Screen
-                name="CategoryMeals"
-                component={CategoryMealsScreen}
-                options={({ route }) => ({
-                    title: CATEGORIES.find((c) => c.id === route.params.categoryId)?.title
-                })}
             />
             <Stack.Screen
                 name="MealDetail"
@@ -37,4 +29,4 @@ const MealsNavigator = () => {
     );
 };
 
-export default MealsNavigator;
+export default FavoritesNavigator;

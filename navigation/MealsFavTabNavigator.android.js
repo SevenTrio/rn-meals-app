@@ -3,8 +3,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { Ionicons } from '@expo/vector-icons';
 
 import MealsNavigator from './MealsNavigator';
-import FavoritesScreen from '../screens/FavoritesScreen';
-
+import FavoritesNavigator from './FavoritesNavigator';
 import colors from '../constants/colors';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -13,7 +12,7 @@ const MealsFavTabNavigator = () => {
     return (
         <Tab.Navigator shifting={true}>
             <Tab.Screen
-                name="Meals"
+                name="MealsTab"
                 component={MealsNavigator}
                 options={{
                     tabBarLabel: 'Meals',
@@ -28,8 +27,8 @@ const MealsFavTabNavigator = () => {
                 }}
             />
             <Tab.Screen
-                name="Favorites"
-                component={FavoritesScreen}
+                name="FavoritesTab"
+                component={FavoritesNavigator}
                 options={{
                     tabBarLabel: 'Favorites',
                     tabBarColor: colors.accent,
