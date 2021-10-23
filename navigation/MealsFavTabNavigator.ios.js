@@ -13,6 +13,9 @@ const MealsFavTabNavigator = () => {
         <Tab.Navigator
             screenOptions={{
                 headerShown: false,
+                tabBarLabelStyle: {
+                    fontFamily: 'open-sans'
+                },
                 tabBarActiveTintColor: colors.accent,
             }}
         >

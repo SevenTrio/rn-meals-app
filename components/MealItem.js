@@ -1,31 +1,33 @@
 import React from 'react';
 import {
     View,
-    Text,
     ImageBackground,
     TouchableOpacity,
     StyleSheet
 } from 'react-native';
 
+import BoldText from './BoldText';
+import DefaultText from './DefaultText';
+
 const MealItem = ({ meal, onSelectMeal }) => {
     return (
         <View style={styles.mealItem}>
             <TouchableOpacity onPress={onSelectMeal}>
-                <View>
+                <View style={styles.container}>
                     <View style={{ ...styles.mealRow, ...styles.mealHeader }}>
                         <ImageBackground
                             source={{ uri: meal.imageUrl }}
                             style={styles.bgImage}
                         >
-                            <Text style={styles.title} numberOfLines={1}>
+                            <BoldText style={styles.title} numberOfLines={1}>
                                 {meal.title}
-                            </Text>
+                            </BoldText>
                         </ImageBackground>
                     </View>
                     <View style={{ ...styles.mealRow, ...styles.mealDetail }}>
-                        <Text>{meal.duration}m</Text>
-                        <Text>{meal.complexity.toUpperCase()}</Text>
-                        <Text>{meal.affordability.toUpperCase()}</Text>
+                        <DefaultText>{meal.duration}m</DefaultText>
+                        <DefaultText>{meal.complexity.toUpperCase()}</DefaultText>
+                        <DefaultText>{meal.affordability.toUpperCase()}</DefaultText>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -42,6 +44,10 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         backgroundColor: '#e5e5e5'
     },
+    container: {
+        height: '100%',
+        justifyContent: 'space-between'
+    },
     bgImage: {
         width: '100%',
         height: '100%',
@@ -54,12 +60,12 @@ const styles = StyleSheet.create({
         height: '85%'
     },
     mealDetail: {
+        paddingVertical: 5,
         paddingHorizontal: 10,
         justifyContent: 'space-between',
         alignItems: 'center'
     },
     title: {
-        fontFamily: 'open-sans-bold',
         fontSize: 22,
         color: 'white',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',

@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import MealsNavigator from './MealsNavigator';
 import FavoritesNavigator from './FavoritesNavigator';
+import DefaultText from '../components/DefaultText';
 import colors from '../constants/colors';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -15,7 +16,7 @@ const MealsFavTabNavigator = () => {
                 name="MealsTab"
                 component={MealsNavigator}
                 options={{
-                    tabBarLabel: 'Meals',
+                    tabBarLabel: <DefaultText>Meals</DefaultText>,
                     tabBarColor: colors.primary,
                     tabBarIcon: ({ focused, color }) => (
                         <Ionicons
@@ -30,7 +31,7 @@ const MealsFavTabNavigator = () => {
                 name="FavoritesTab"
                 component={FavoritesNavigator}
                 options={{
-                    tabBarLabel: 'Favorites',
+                    tabBarLabel: <DefaultText>Favorites</DefaultText>,
                     tabBarColor: colors.accent,
                     tabBarIcon: ({ focused, color }) => (
                         <Ionicons
