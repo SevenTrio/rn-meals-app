@@ -4,6 +4,9 @@ import * as Font from 'expo-font';
 
 import AppNavigator from './navigation/AppNavigator';
 
+import { Provider as ReduxProvider } from 'react-redux';
+import store from './store';
+
 const fetchFonts = () => {
     return Font.loadAsync({
         'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
@@ -24,7 +27,11 @@ const App = () => {
         );
     }
 
-    return <AppNavigator />;
+    return (
+        <ReduxProvider store={store}>
+            <AppNavigator />
+        </ReduxProvider>
+    );
 };
 
 export default App;

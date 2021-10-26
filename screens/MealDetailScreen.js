@@ -1,4 +1,5 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { View, ScrollView, Image, StyleSheet } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
@@ -6,7 +7,7 @@ import BoldText from '../components/BoldText';
 import DefaultText from '../components/DefaultText';
 import HeaderButton from '../components/HeaderButton';
 
-import { MEALS } from '../data/dummy-data';
+import { toggleFavorites } from '../store/actions/mealsActions';
 
 const ListItem = ({ children }) => (
     <View style={styles.listItem}>
@@ -16,25 +17,38 @@ const ListItem = ({ children }) => (
 
 const MealDetailScreen = ({ route, navigation }) => {
     const { mealId } = route.params;
-    const selectedMeal = MEALS.find((m) => m.id === mealId);
+    const allMeals = useSelector((state) => state.meals.meals);
+    const selectedMeal = allMeals.find((meal) => meal.id === mealId);
+    const isFavorite = useSelector((state) => (
+        state.meals.favoriteMeals.some((meal) => meal.id === mealId)
+    ));
+    const dispatch = useDispatch();
+
+    const toggleFavoriteHandler = useCallback(() => {
+        dispatch(toggleFavorites(mealId));
+    }, [dispatch, mealId]);
 
     useLayoutEffect(() => {
         navigation.setOptions({
+            title: selectedMeal.title,
             headerRight: () => (
                 <HeaderButtons HeaderButtonComponent={HeaderButton}>
                     <Item
                         title="Favorite"
-                        iconName="ios-star"
-                        onPress={() => console.log('Mark as favorite!')}
+                        iconName={isFavorite ? 'ios-star' : 'ios-star-outline'}
+                        onPress={toggleFavoriteHandler}
                     />
                 </HeaderButtons>
-            ),
+            )
         });
-    }, [navigation]);
+    }, [navigation, selectedMeal, isFavorite, toggleFavoriteHandler]);
 
     return (
         <ScrollView>
-            <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
+            <Image
+                source={{ uri: selectedMeal.imageUrl }}
+                style={styles.image}
+            />
             <View style={styles.details}>
                 <DefaultText>{selectedMeal.duration}m</DefaultText>
                 <DefaultText>{selectedMeal.complexity.toUpperCase()}</DefaultText>

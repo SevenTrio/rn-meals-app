@@ -4,7 +4,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import MealDetailScreen from '../screens/MealDetailScreen';
 import stackNavOptions from '../constants/stackNavOptions';
-import { MEALS } from '../data/dummy-data';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,9 +20,6 @@ const FavoritesNavigator = () => {
             <Stack.Screen
                 name="MealDetail"
                 component={MealDetailScreen}
-                options={({ route }) => ({
-                    title: MEALS.find((m) => m.id === route.params.mealId)?.title
-                })}
             />
         </Stack.Navigator>
     );

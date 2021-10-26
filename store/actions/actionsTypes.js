@@ -1,0 +1,3 @@
+export const MEALS_ACTIONS = {
+    TOGGLE_FAVORITES: 'TOGGLE_FAVORITES'
+};
