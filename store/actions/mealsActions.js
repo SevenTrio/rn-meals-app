@@ -6,3 +6,10 @@ export const toggleFavorites = (id) => {
         payload: id
     };
 };
+
+export const setFilters = (filterSettings) => {
+    return {
+        type: MEALS_ACTIONS.SET_FILTERS,
+        payload: filterSettings
+    };
+};

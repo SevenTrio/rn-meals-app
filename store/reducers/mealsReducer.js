@@ -9,7 +9,7 @@ const initialState = {
 
 const mealsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case MEALS_ACTIONS.TOGGLE_FAVORITES:
+        case MEALS_ACTIONS.TOGGLE_FAVORITES: {
             const mealId = action.payload;
             const existingIndex = state.favoriteMeals.findIndex((m) => m.id === mealId);
             if (existingIndex >= 0) {
@@ -27,8 +27,25 @@ const mealsReducer = (state = initialState, action) => {
                     favoriteMeals: [...state.favoriteMeals, meal]
                 };
             }
-        default:
+        }
+
+        case MEALS_ACTIONS.SET_FILTERS: {
+            const appliedFilters = action.payload;
+            const updatedFilteredMeals = state.meals.filter((meal) => {
+                if (appliedFilters.glutenFree && !meal.isGlutenFree) return false;
+                if (appliedFilters.lactoseFree && !meal.isLactoseFree) return false;
+                if (appliedFilters.vegetarian && !meal.isVegetarian) return false;
+                if (appliedFilters.vegan && !meal.isVegan) return false;
+
+                return true;
+            });
+
+            return { ...state, filteredMeals: updatedFilteredMeals };
+        }
+
+        default: {
             return state;
+        }
     }
 };
 
